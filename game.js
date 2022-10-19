@@ -2,19 +2,25 @@ import startObj from "./start.js";
 import container from "./script.js";
 const gameObj = {
     getPics(count){
-        fetch(`https://api.pexels.com/v1/search?query=nature&per_page=${count}`,{
-            method: 'GET',
-            headers : {
-                "Authorization" : "563492ad6f9170000100000157d57ca604814de8b4e961a46994f8c3",
+        fetch(`https://api.pexels.com/v1/search?&query=nature&per_page=${count/2}`, {
+            headers: {
+                Authorization: '563492ad6f91700001000001f69872998c554defa4c68b7665ec914c'
             }
-        })    
+        })
         .then(response => response.json())
         .then(resp => container.innerHTML = this.render(resp));
     },
     render(response) {
-        console.log(response.photos);   
+        let imgs = "";
+        for (let i = 0; i < response.photos.length; i++) {
+            imgs += `<img src="response.photos[i].src.small" >`
+        }
+        console.log(imgs);
+
         return `
-            <img src="${response.photos.src}">      
+            <div class="img-container">
+                ${imgs}
+            </div>
         `
     }
 }
